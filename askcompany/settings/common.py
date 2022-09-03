@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ADMINS = [
+    ('Haebin Yun', 'yhb7588@naver.com'),
+]
 
 # Application definition
 
@@ -36,13 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third  Apps
+    'bootstrap4',
     'debug_toolbar',
+    'django_pydenticon',
+    'imagekit',
+    'easy_thumbnails',
     # Local Appss
     'accounts',
+    'instagram',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +97,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+AUTH_USER_MODEL = "accounts.User"
 
 
 # Password validation
@@ -139,6 +150,17 @@ INTERNAL_IPS = ['127.0.0.1']
 
 def show_toolbar(request):
     return True
+    
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
 }
+
+# sendgrid 
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+WELCOME_EMAIL_SENDER = "yhb7588@naver.com"
